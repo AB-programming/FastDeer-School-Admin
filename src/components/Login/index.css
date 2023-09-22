@@ -1,0 +1,10 @@
+.form {
+    margin: 10% auto;
+    padding-right: 120px;
+}
+
+body {
+    /*background-image: url("public/login-background.webp");*/
+    background-size: cover;
+    background-repeat: no-repeat;
+}

@@ -1,0 +1,13 @@
+.header {
+    padding: 0;
+    display: flex;
+}
+
+.header .info {
+    width: 10%;
+    position: absolute;
+    display: flex;
+    right: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
