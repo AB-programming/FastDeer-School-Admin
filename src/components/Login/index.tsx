@@ -49,10 +49,10 @@ export default function Login() {
                 username,
                 password
             });
-
             const loginRes = res.data as HttpResponse<SchoolLoginResult>
             if (loginRes.code === '200' && loginRes.data.status) {
                 openNotification(true, loginRes)
+                localStorage.setItem(import.meta.env.VITE_OPENID, username)
                 setTimeout(() => {
                     login(loginRes.data.data)
                 }, 1000)
