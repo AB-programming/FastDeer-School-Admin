@@ -4,6 +4,8 @@ import Login from "../components/Login";
 import Home from "../pages/Home";
 import Event from "../pages/Event";
 import EventEditor from "../components/EventEditor";
+import EventDisplay from "../components/EventDisplay";
+import Job from "../pages/Job";
 
 export default [
     {
@@ -19,6 +21,11 @@ export default [
                 path: '/event',
                 name: '活动',
                 element: Auth(<Event />)
+            },
+            {
+                path: '/job',
+                name: '工作',
+                element: Auth(<Job />)
             }
         ]
     },
@@ -31,5 +38,10 @@ export default [
         path: '/event-editor',
         name: '活动编辑器',
         element: Auth(<EventEditor />)
+    },
+    {
+        path: "/event-display",
+        name: "活动预览",
+        element: Auth(<EventDisplay />)
     }
 ]

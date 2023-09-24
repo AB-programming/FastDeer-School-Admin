@@ -22,7 +22,6 @@ const Event: React.FC = () => {
         const fetchEventList = async () => {
             const fetchEventListRes = (await axios.get(import.meta.env.VITE_END_ADDRESS + "/event/selectEventListByUserId?userId="
                 + localStorage.getItem(import.meta.env.VITE_OPENID))).data as HttpResponse<Array<EventDisplay>>
-            console.log(fetchEventListRes)
             setData(fetchEventListRes.data)
         }
         fetchEventList().then()
@@ -37,6 +36,11 @@ const Event: React.FC = () => {
                 dataSource={data}
                 renderItem={event => (
                     <List.Item
+                        onClick={() => {
+                            navigate("/event-display", {
+                                state: event
+                            })
+                        }}
                         key={event.eventId}
                         extra={
                             <img

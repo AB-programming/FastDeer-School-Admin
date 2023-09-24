@@ -5,7 +5,8 @@ import {
     ScheduleOutlined,
     SmileOutlined,
     LoadingOutlined,
-    PlusOutlined
+    PlusOutlined,
+    AuditOutlined
 } from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Avatar, Layout, Menu, theme, Typography, Dropdown, Modal, notification, Drawer, Upload} from 'antd';
@@ -22,6 +23,7 @@ const {Header, Content, Footer, Sider} = Layout;
 const sideMenuItems: MenuProps['items'] = [
     HomeOutlined,
     ScheduleOutlined,
+    AuditOutlined,
 ].map((ico, index) => {
     const key = String(index)
     const icon = React.createElement(ico)
@@ -33,6 +35,10 @@ const sideMenuItems: MenuProps['items'] = [
         }
         case 1: {
             label = LABEL.EVENT;
+            break;
+        }
+        case 2: {
+            label = LABEL.JOB;
             break;
         }
         default: {
@@ -105,6 +111,10 @@ export default function Dashboard() {
                 navigate('/event');
                 break;
             }
+            case '2': {
+                navigate('/job');
+                break;
+            }
         }
     }
 
@@ -170,7 +180,12 @@ export default function Dashboard() {
             </Sider>
             <Layout className="site-layout" style={{marginLeft: 200}}>
                 <Header style={{background: colorBgContainer}} className={'header'}>
-                    <Title level={2}>{routeName}</Title>
+                    <Title
+                        level={1}
+                        className={'title'}
+                        // mark
+                        underline
+                    >{routeName}</Title>
                     <div className={'info'}>
                         <Text strong>{schoolInfo?.nickName}</Text>
                         <Dropdown menu={{items}}>

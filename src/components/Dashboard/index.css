@@ -1,6 +1,8 @@
 .header {
     padding: 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .header .info {
@@ -10,4 +12,8 @@
     right: 1rem;
     justify-content: space-between;
     align-items: center;
+}
+
+.header .title {
+    color: #2162d1;
 }
