@@ -1,6 +1,7 @@
 import JobDisplay from "../../components/JobDisplay";
 import {Col, FloatButton, Row} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
+import {useNavigate} from "react-router-dom";
 
 
 function Job() {
@@ -16,6 +17,8 @@ function Job() {
         applicationDeadline: '2023-10-15',
         contactInfo: '联系邮箱: zhangsan@example.com',
     }
+
+    const navigate = useNavigate();
     return (
         <div>
             <Row>
@@ -32,7 +35,7 @@ function Job() {
                     <JobDisplay {...data}/>
                 </Col>
             </Row>
-            <FloatButton type={'primary'} icon={<PlusOutlined />}/>
+            <FloatButton type={'primary'} icon={<PlusOutlined />} onClick={() => navigate('/job-editor')}/>
         </div>
     )
 }

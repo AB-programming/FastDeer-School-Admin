@@ -3,7 +3,7 @@ import axios from "axios";
 export async function useLoginStatus(): Promise<boolean> {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN)
     if (!token) {
-        return false;
+        return true;
     }
     try {
         const res = await axios.get(import.meta.env.VITE_END_ADDRESS + '/school/isLogin', {

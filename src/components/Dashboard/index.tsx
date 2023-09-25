@@ -6,7 +6,8 @@ import {
     SmileOutlined,
     LoadingOutlined,
     PlusOutlined,
-    AuditOutlined
+    AuditOutlined,
+    TeamOutlined
 } from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Avatar, Layout, Menu, theme, Typography, Dropdown, Modal, notification, Drawer, Upload} from 'antd';
@@ -24,6 +25,7 @@ const sideMenuItems: MenuProps['items'] = [
     HomeOutlined,
     ScheduleOutlined,
     AuditOutlined,
+    TeamOutlined
 ].map((ico, index) => {
     const key = String(index)
     const icon = React.createElement(ico)
@@ -39,6 +41,10 @@ const sideMenuItems: MenuProps['items'] = [
         }
         case 2: {
             label = LABEL.JOB;
+            break;
+        }
+        case 3: {
+            label = LABEL.VOLUNTEER;
             break;
         }
         default: {
@@ -113,6 +119,10 @@ export default function Dashboard() {
             }
             case '2': {
                 navigate('/job');
+                break;
+            }
+            case '3': {
+                navigate('/volunteer')
                 break;
             }
         }
@@ -213,8 +223,8 @@ export default function Dashboard() {
             </Modal>
             <Drawer title="学校信息" placement="right" onClose={() => setIsShowInfoEdit(false)}
                     open={isShowInfoEdit}>
-                <Text>账户：</Text><Text strong type="secondary">100</Text><br/>
-                <Text>学校：</Text><Text strong type="success">山东交通学院</Text><br/><br/>
+                <Text>账户：</Text><Text strong type="secondary">{schoolInfo?.id}</Text><br/>
+                <Text>学校：</Text><Text strong type="success">{schoolInfo?.nickName}</Text><br/><br/>
                 <Avatar size="large" src={avatarUrl}/><br/><br/>
                 <Upload
                     maxCount={1}

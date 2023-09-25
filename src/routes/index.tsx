@@ -6,6 +6,8 @@ import Event from "../pages/Event";
 import EventEditor from "../components/EventEditor";
 import EventDisplay from "../components/EventDisplay";
 import Job from "../pages/Job";
+import JobEditor from "../components/JobEditor";
+import Volunteer from "../pages/Volunteer";
 
 export default [
     {
@@ -26,6 +28,11 @@ export default [
                 path: '/job',
                 name: '工作',
                 element: Auth(<Job />)
+            },
+            {
+                path: '/volunteer',
+                name: '志愿服务',
+                element: Auth(<Volunteer />)
             }
         ]
     },
@@ -43,5 +50,10 @@ export default [
         path: "/event-display",
         name: "活动预览",
         element: Auth(<EventDisplay />)
+    },
+    {
+        path: '/job-editor',
+        name: '工作编辑器',
+        element: Auth(<JobEditor />)
     }
 ]
