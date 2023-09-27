@@ -8,6 +8,7 @@ import EventDisplay from "../components/EventDisplay";
 import Job from "../pages/Job";
 import JobEditor from "../components/JobEditor";
 import Volunteer from "../pages/Volunteer";
+import VolunteerEditor from "../components/VolunteerEditor";
 
 export default [
     {
@@ -55,5 +56,10 @@ export default [
         path: '/job-editor',
         name: '工作编辑器',
         element: Auth(<JobEditor />)
+    },
+    {
+        path: '/volunteer-editor',
+        name: '志愿服务编辑器',
+        element: Auth(<VolunteerEditor />)
     }
 ]

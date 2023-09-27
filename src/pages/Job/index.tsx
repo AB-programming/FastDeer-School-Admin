@@ -1,41 +1,70 @@
 import JobDisplay from "../../components/JobDisplay";
-import {Col, FloatButton, Row} from "antd";
+import {Button, Col, FloatButton, message, Popover, Row} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
+export interface JobInfo {
+    jobId: string,
+    jobName: string,
+    userId: string,
+    nickName: string,
+    avatar: string,
+    degree: string,
+    salary: string,
+    description: string,
+    company: string,
+    date: string,
+    deadline: string,
+    contact: string,
+}
 
 function Job() {
-    const data = {
-        jobTitle: '前端工程师',
-        employerName: '张三',
-        employerAvatar: 'http://192.168.110.191:8080/static/avatar/1.jpg',
-        educationRequirement: '本科及以上',
-        salary: '20,000 - 30,000元/月',
-        jobDescription: '负责前端开发工作...',
-        companyName: 'ABC公司',
-        publishDate: '2023-09-25',
-        applicationDeadline: '2023-10-15',
-        contactInfo: '联系邮箱: zhangsan@example.com',
-    }
+    const [jobList, setJobList] = useState<Array<JobInfo>>([]);
+    const [messageApi, contextHolder] = message.useMessage();
+
+    const jobCardPreview = (jobId: string) => (
+        <Button type={"primary"} danger onClick={async () => {
+            const deleteRes = (await axios.delete(import.meta.env.VITE_END_ADDRESS + "/job/deleteJob?jobId=" + jobId, {
+                headers: {
+                    "Authorization": localStorage.getItem(import.meta.env.VITE_TOKEN)
+                }
+            })).data as HttpResponse<boolean>;
+            if (deleteRes.code === '200' && deleteRes.data) {
+                messageApi.success(deleteRes.msg);
+                setJobList(jobList.filter(job => job.jobId !== jobId));
+            } else {
+                messageApi.error(deleteRes.msg);
+            }
+        }}>删除该职位</Button>
+    )
+
+    useEffect(() => {
+        const fetchJobList = async () => {
+            const jobListRes = (await axios.get(import.meta.env.VITE_END_ADDRESS + "/job/selectJobListBySchoolId?schoolId="
+                + localStorage.getItem(import.meta.env.VITE_OPENID))).data as HttpResponse<Array<JobInfo>>;
+            if (jobListRes.code === '200') {
+                setJobList(jobListRes.data);
+            }
+        }
+        fetchJobList().then();
+    }, []);
 
     const navigate = useNavigate();
     return (
         <div>
+            {contextHolder}
             <Row>
-                <Col span={8}>
-                    <JobDisplay {...data}/>
-                </Col>
-                <Col span={8}>
-                    <JobDisplay {...data}/>
-                </Col>
-                <Col span={8}>
-                    <JobDisplay {...data}/>
-                </Col>
-                <Col span={8}>
-                    <JobDisplay {...data}/>
-                </Col>
+                {jobList.map(job =>
+                    <Popover key={job.jobId} content={jobCardPreview(job.jobId)}>
+                        <Col span={8}>
+                            <JobDisplay {...job}/>
+                        </Col>
+                    </Popover>
+                )}
             </Row>
-            <FloatButton type={'primary'} icon={<PlusOutlined />} onClick={() => navigate('/job-editor')}/>
+            <FloatButton type={'primary'} icon={<PlusOutlined/>} onClick={() => navigate('/job-editor')}/>
         </div>
     )
 }
